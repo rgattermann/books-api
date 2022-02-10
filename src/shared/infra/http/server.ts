@@ -5,6 +5,8 @@ import 'express-async-errors';
 import AppError from '@shared/errors/AppError';
 import routes from '@shared/routes';
 
+import '@shared/infra/typeorm/index';
+
 const app = express();
 
 app.use(express.json());
