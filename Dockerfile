@@ -8,10 +8,6 @@ RUN chown app:app /usr/app
 
 COPY . .
 
-RUN yarn install --ignore-platform --production
-
-RUN yarn build
+RUN yarn install --ignore-platform
 
 EXPOSE 3333
-
-CMD [ "node", "dist/server.js" ]

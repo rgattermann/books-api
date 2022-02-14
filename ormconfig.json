@@ -1,6 +1,6 @@
 {
   "type": "mongodb",
-  "host": "localhost",
+  "host": "database-dev",
   "port": 27017,
   "username": "root",
   "password": "books",

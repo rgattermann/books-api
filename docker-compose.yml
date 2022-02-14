@@ -1,26 +1,30 @@
-version: "3"
-
+version: "3.8"
 services:
-  api:
-    container_name: api
-    build: .
+  api-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: api-dev
+    volumes:
+      - .:/usr/app
     restart: always
     depends_on:
-      - database
+      - database-dev
     ports:
-      - 3333:3333
-  database:
-    container_name: mongo-database
+      - 3334:3333
+    command: yarn dev:server
+  database-dev:
+    container_name: mongo-database-dev
     image: mongo:latest
     restart: always
     volumes:
-      - books-data:/data/db
+      - books-data-dev:/data/db
     environment:
       - MONGO_INITDB_DATABASE=books
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=books
     ports:
-      - 27017:27017
+      - 27019:27017
 
 volumes:
-  books-data:
+  books-data-dev:
