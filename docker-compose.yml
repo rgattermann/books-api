@@ -25,6 +25,16 @@ services:
       - MONGO_INITDB_ROOT_PASSWORD=books
     ports:
       - 27019:27017
+  migration:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: migration-dev
+    volumes:
+      - .:/usr/app
+    depends_on:
+      - database-dev
+    command: yarn typeorm migration:run
 
 volumes:
   books-data-dev:
