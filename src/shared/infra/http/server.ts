@@ -6,7 +6,7 @@ import AppError from '@shared/errors/AppError';
 import routes from '@shared/routes';
 
 import '@shared/infra/typeorm/index';
-import '@shared/contanier';
+import '@shared/container/index';
 
 const app = express();
 
