@@ -1,6 +1,6 @@
+import { uuid } from 'uuidv4';
 import ICreateBookDTO from '@modules/books/dtos/ICreateBookDTO';
 import Book from '@modules/books/infra/typeorm/entities/Book';
-import { uuid } from 'uuidv4';
 import IBooksRepository from '../IBooksRepository';
 
 class FakeBooksRepository implements IBooksRepository {
@@ -12,6 +12,12 @@ class FakeBooksRepository implements IBooksRepository {
     Object.assign(book, { id: uuid() }, userData);
 
     this.books.push(book);
+
+    return book;
+  }
+
+  public async findById(id: string): Promise<Book | undefined> {
+    const book = this.books.find(b => b.id.toString() === id);
 
     return book;
   }

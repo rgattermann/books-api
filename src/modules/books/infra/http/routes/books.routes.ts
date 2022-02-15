@@ -10,4 +10,6 @@ booksRouter.use(ensureAuthenticated);
 
 booksRouter.post('/', booksController.create);
 
+booksRouter.get('/:book_id/detail', booksController.detail);
+
 export default booksRouter;
