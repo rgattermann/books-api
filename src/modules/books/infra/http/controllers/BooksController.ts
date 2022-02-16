@@ -2,6 +2,7 @@ import { container } from 'tsyringe';
 
 import { Request, Response } from 'express';
 import CreateBookService from '@modules/books/services/CreateBookService';
+import ListAllBooksService from '@modules/books/services/ListAllBooksService';
 import DetailBookService from '@modules/books/services/DetailBookService';
 
 export default class BooksController {
@@ -28,5 +29,14 @@ export default class BooksController {
     }
 
     return response.json(book);
+  }
+
+  public async listAll(request: Request, response: Response): Promise<Response> {
+
+    const listBooks = container.resolve(ListAllBooksService);
+
+    const books = await listBooks.execute();
+
+    return response.json(books);
   }
 }

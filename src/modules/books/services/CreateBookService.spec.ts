@@ -1,12 +1,12 @@
-import FakeUsersRepository from '../repositories/fakes/FakeBooksRepository';
+import FakeBooksRepository from '../repositories/fakes/FakeBooksRepository';
 import CreateBookService from './CreateBookService';
 
 describe('CreateBook', () => {
   it('should be able to create a new book', async () => {
-    const fakeUsersRepository = new FakeUsersRepository();
+    const fakeBooksRepository = new FakeBooksRepository();
 
     const createBookService = new CreateBookService(
-      fakeUsersRepository,
+      fakeBooksRepository,
     );
 
     const book = await createBookService.execute({

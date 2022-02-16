@@ -24,6 +24,13 @@ class BooksRepository implements IBooksRepository {
 
     return book;
   }
+
+  public async findAll(): Promise<Book[]> {
+
+    const books = await this.ormRepository.find();
+
+    return books;
+  }
 }
 
 export default BooksRepository;

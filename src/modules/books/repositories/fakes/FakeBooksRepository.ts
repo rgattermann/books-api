@@ -21,6 +21,10 @@ class FakeBooksRepository implements IBooksRepository {
 
     return book;
   }
+
+  public findAll(): Promise<Book[]> {
+    return Promise.all(this.books);
+  }
 }
 
 export default FakeBooksRepository;
