@@ -5,8 +5,6 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: api-dev
-    volumes:
-      - .:/usr/app
     restart: always
     depends_on:
       - database-dev
