@@ -6,5 +6,5 @@ export default interface IBooksRepository {
   findById(id: string): Promise<Book | undefined>;
   findAll(): Promise<Book[]>;
   delete(id: string): Promise<void>;
-  save(user: Book): Promise<Book>;
+  save(book: Book): Promise<Book>;
 }

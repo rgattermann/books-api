@@ -10,6 +10,8 @@ booksRouter.use(ensureAuthenticated);
 
 booksRouter.post('/', booksController.create);
 
+booksRouter.put('/', booksController.update);
+
 booksRouter.get('/:book_id/detail', booksController.detail);
 
 booksRouter.get('/', booksController.listAll);

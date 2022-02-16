@@ -18,6 +18,16 @@ export default class BooksController {
     return response.json(book);
   }
 
+  public async update(request: Request, response: Response): Promise<Response> {
+    const { title, author, pages } = request.body;
+
+    const createBook = container.resolve(CreateBookService);
+
+    const book = await createBook.execute({title, author, pages});
+
+    return response.json(book);
+  }
+
   public async detail(request: Request, response: Response): Promise<Response> {
 
     const { book_id } = request.params;
