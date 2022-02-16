@@ -1,4 +1,5 @@
 import ICreateBookDTO from '@modules/books/dtos/ICreateBookDTO';
+import IFilterBookDTO from '@modules/books/dtos/IFilterBookDTO';
 import IBooksRepository from '@modules/books/repositories/IBooksRepository';
 import { getMongoRepository, MongoRepository } from 'typeorm';
 
@@ -23,6 +24,25 @@ class BooksRepository implements IBooksRepository {
     const book = await this.ormRepository.findOne(id);
 
     return book;
+  }
+
+  public async findByFilter(filter: IFilterBookDTO[]): Promise<Book[]> {
+
+    const where = filter.map( ({key, value}) => {
+      return {[key]: { $eq: value}};
+    });
+
+    const _where = where.reduce(function(result, item) {
+      var key = Object.keys(item)[0];
+      result[key] = item[key];
+      return result;
+    }, {});
+
+    const books = await this.ormRepository.find({
+      where: _where
+    });
+
+    return books;
   }
 
   public async findAll(): Promise<Book[]> {

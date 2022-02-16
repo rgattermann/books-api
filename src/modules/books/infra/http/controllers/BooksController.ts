@@ -6,6 +6,8 @@ import ListAllBooksService from '@modules/books/services/ListAllBooksService';
 import RentBookService from '@modules/books/services/RentBookService';
 import DeleteBookService from '@modules/books/services/DeleteBookService';
 import DetailBookService from '@modules/books/services/DetailBookService';
+import IFilterBookDTO from '@modules/books/dtos/IFilterBookDTO';
+import ListAllBooksByFilterService from '@modules/books/services/ListAllBooksByFilterService';
 
 export default class BooksController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -44,6 +46,31 @@ export default class BooksController {
   }
 
   public async listAll(request: Request, response: Response): Promise<Response> {
+    const filter: IFilterBookDTO[] = [];
+
+    if (request.query.title) {
+      filter.push({key: 'title', value: request.query.title});
+    }
+
+    if (request.query.author) {
+      filter.push({key: 'author', value: request.query.author});
+    }
+
+    if (request.query.pages) {
+      filter.push({key: 'pages', value: parseInt((request.query as any).pages)});
+    }
+
+    if (request.query.rented) {
+      filter.push({key: 'rented', value: ((request.query as any).rented === 'true')});
+    }
+
+    if (filter.length) {
+      const listBooks = container.resolve(ListAllBooksByFilterService);
+
+      const books = await listBooks.execute(filter);
+
+      return response.json(books);
+    }
 
     const listBooks = container.resolve(ListAllBooksService);
 

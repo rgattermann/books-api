@@ -2,7 +2,7 @@ import FakeBooksRepository from '../repositories/fakes/FakeBooksRepository';
 import CreateBookService from './CreateBookService';
 import ListAllBooksService from './ListAllBooksService';
 
-describe('DetailBook', () => {
+describe('ListAllBooks', () => {
   it('should be able to show a list of books', async () => {
     const fakeBooksRepository = new FakeBooksRepository();
 
