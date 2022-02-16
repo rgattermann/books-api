@@ -25,6 +25,20 @@ class FakeBooksRepository implements IBooksRepository {
   public findAll(): Promise<Book[]> {
     return Promise.all(this.books);
   }
+
+  public async save(book: Book): Promise<Book> {
+    const findIndex = this.books.findIndex(findBook => findBook.id === book.id);
+
+    this.books[findIndex] = book;
+
+    return book;
+  }
+
+  public async delete(book_id: string): Promise<void> {
+    const books = this.books.filter(findBook => findBook.id.toString() !== book_id);
+
+    this.books = books;
+  }
 }
 
 export default FakeBooksRepository;

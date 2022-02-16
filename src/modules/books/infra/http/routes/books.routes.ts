@@ -14,4 +14,8 @@ booksRouter.get('/:book_id/detail', booksController.detail);
 
 booksRouter.get('/', booksController.listAll);
 
+booksRouter.delete('/:book_id', booksController.delete);
+
+booksRouter.patch('/:book_id/rent', booksController.rent);
+
 export default booksRouter;
