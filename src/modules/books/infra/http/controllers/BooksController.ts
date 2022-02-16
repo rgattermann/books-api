@@ -8,6 +8,7 @@ import DeleteBookService from '@modules/books/services/DeleteBookService';
 import DetailBookService from '@modules/books/services/DetailBookService';
 import IFilterBookDTO from '@modules/books/dtos/IFilterBookDTO';
 import ListAllBooksByFilterService from '@modules/books/services/ListAllBooksByFilterService';
+import UpdateBookService from '@modules/books/services/UpdateBookService';
 
 export default class BooksController {
   public async create(request: Request, response: Response): Promise<Response> {
@@ -21,11 +22,11 @@ export default class BooksController {
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
-    const { title, author, pages } = request.body;
+    const { id, title, author, pages } = request.body;
 
-    const createBook = container.resolve(CreateBookService);
+    const updateBook = container.resolve(UpdateBookService);
 
-    const book = await createBook.execute({title, author, pages});
+    const book = await updateBook.execute({id, title, author, pages});
 
     return response.json(book);
   }
@@ -57,11 +58,11 @@ export default class BooksController {
     }
 
     if (request.query.pages) {
-      filter.push({key: 'pages', value: parseInt((request.query as any).pages)});
+      filter.push({key: 'pages', value: request.query.pages});
     }
 
     if (request.query.rented) {
-      filter.push({key: 'rented', value: ((request.query as any).rented === 'true')});
+      filter.push({key: 'rented', value: request.query.rented});
     }
 
     if (filter.length) {
